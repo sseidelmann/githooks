@@ -16,12 +16,13 @@ class Installer {
     public static function postUpdateCmd(Event $event) {
         /* @var $io \Composer\IO\ConsoleIO */
         $io = $event->getIO();
-        $io->write('<info>Executing the event "postUpdateCmd"</info>');
+
+        $io->write('');
 
         $pwd = realpath(getcwd()) . DIRECTORY_SEPARATOR;
 
 
-        $io->write('<info>Creating new binary file.</info>');
+        $io->write('<fg:cyan>-> Creating new binary file.</fg:cyan>');
         self::createBinary($pwd);
         self::createConfig($pwd);
 
