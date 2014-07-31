@@ -63,9 +63,8 @@ class HookLoader {
      * @return void
      */
     public function __construct(array $argvInput = array()) {
-        $this->argvInput = $argvInput;
+        $this->argvInput = array_merge($argvInput, explode(' ', file_get_contents('php://stdin')));
         $this->config    = $this->readConfig();
-        print_r(explode(' ', file_get_contents('php://stdin')));
     }
 
     /**
