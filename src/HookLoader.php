@@ -139,6 +139,7 @@ class HookLoader {
      * @return GitFile[]
      */
     private function getFiles() {
+        /*
         exec("git rev-parse --verify HEAD 2> /dev/null", $set, $return);
 
         $against = $return === 0
@@ -147,12 +148,39 @@ class HookLoader {
             : '4b825dc642cb6eb9a060e54bf8d69288fbee4904';
 
         exec("git diff-index --cached --full-index {$against}", $files);
+        */
+
+        $command = sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]);
+        \GitHooks\Helper\ConsoleOutput::logger()->debug('executing diff command:');
+        \GitHooks\Helper\ConsoleOutput::logger()->write('     ' . $command);
+        exec($command, $diff, $return);
+
 
         $parsed = array();
-        foreach ($files as $file) {
-            $parsed[] = new GitFile($file);
+        foreach ($diff as $file) {
+            \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
+            $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5], $file));
+            \GitHooks\Helper\ConsoleOutput::logger()->write('     ' . $commandLsTree);
+            exec($commandLsTree, $tree, $return);
+            $tree = preg_split('/\s/', $tree[0]);
+
+
+            $fileContents = array();
+            exec("git cat-file $tree[1] $tree[2]  2> /dev/null", $fileContents, $return);
+            if ($return > 0) {
+
+                echo "Could not run git cat-file\n\n";
+                exit(1);
+            }
+
+            $fileContents = implode("\n", $fileContents);
+
+            // $parsed[] = new GitFile($file);
+            print_r($fileContents);
         }
 
+
+        exit(1);
         return $parsed;
     }
 
