@@ -1,7 +1,9 @@
 #!/usr/bin/php
 <?php
 
-include realpath(dirname(__FILE__) . '/../') . DIRECTORY_SEPARATOR . 'autoload.php';
+define('VENDOR_DIRECTORY', realpath(dirname(__FILE__) . '/../../../') . DIRECTORY_SEPARATOR);
+
+include VENDOR_DIRECTORY . 'autoload.php';
 
 $loader = new \GitHooks\HookLoader($argv);
 $loader->run();
