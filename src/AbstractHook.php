@@ -117,15 +117,10 @@ abstract class AbstractHook {
      * @return void
      */
     protected function addError($file, $error) {
-        $name = $this->getName(true);
-        echo $name . PHP_EOL;
-        if (!isset($this->errors[$file])) {
-            $this->errors[$file] = array();
-        }
-        if (!isset($this->errors[$file][$name])) {
-            $this->errors[$file][$name] = array();
-        }
-        $this->errors[$file][$name][] = $error;
+        $this->errors[current(explode('.', basename($file)))][$this->getName(true)][] = array(
+            'file'  => $file,
+            'error' => $error
+        );
     }
 
     /**
