@@ -122,18 +122,16 @@ class HookLoader {
         $errors = array();
         if ($this->getHooks() > 0) {
             foreach ($this->getHooks() as $hook) {
-                // \GitHooks\Helper\ConsoleOutput::logger()->debug('running ' . $hook->getName());
-                /*if ($hook->run()) {
-                    \GitHooks\Helper\ConsoleOutput::logger()->write($hook->getName() . '  <fg=green;options=bold>√</fg=green;options=bold>');
-                } else {
-                    \GitHooks\Helper\ConsoleOutput::logger()->write($hook->getName() . '  <fg=red;options=bold>†</fg=red;options=bold>');
-                }*/
                 $return = $hook->run();
                 $errors = array_merge($errors, $hook->getErrors());
             }
         }
 
-        print_r($errors);
+        if (count($errors) > 0) {
+            echo "----------------------------------" . PHP_EOL;
+            print_r($errors);
+            echo "----------------------------------" . PHP_EOL;
+        }
     }
 
     /**
