@@ -159,9 +159,10 @@ class HookLoader {
                     2 => $file
                 );*/
             } else {
-                $tree = preg_split('/\s/', $tree[0]);
+
             }
             //
+            $tree = preg_split('/\s/', $tree[0]);
 
 
 
