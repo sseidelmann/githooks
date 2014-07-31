@@ -161,14 +161,11 @@ class HookLoader {
                 exit(1);
             }
 
-            $fileContents = implode("\n", $fileContents);
+            $contents = implode("\n", $fileContents);
 
-            // $parsed[] = new GitFile($file);
-            print_r($fileContents);
+            $parsed[] = new GitFile($file, $contents);
         }
 
-
-        exit(1);
         return $parsed;
     }
 
