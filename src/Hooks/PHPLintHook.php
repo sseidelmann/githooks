@@ -24,8 +24,9 @@ class PHPLintHook extends AbstractHook {
         foreach ($this->getFiles() as $file) {
 
             $this->logger()->debug('Checking ' . $file->getName());
-            $this->logger()->debug('  isDeleted:        ' . $file->isDeleted());
-            $this->logger()->debug('  isValidExtension: ' . $file->isValidExtension('php'));
+            $this->logger()->write('       isDeleted:        ' . $file->isDeleted());
+            $this->logger()->write('       isValidExtension: ' . $file->isValidExtension('php'));
+            $this->logger()->write($file->getRaw());
 
         }
 
