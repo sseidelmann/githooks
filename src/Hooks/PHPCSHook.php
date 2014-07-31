@@ -19,7 +19,6 @@ class PHPCSHook extends AbstractHook {
      * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
      */
     public function run() {
-        // echo __METHOD__ . PHP_EOL;
 
 
         return false;
