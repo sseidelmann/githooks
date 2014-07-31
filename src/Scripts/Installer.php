@@ -28,5 +28,12 @@ class Installer {
     }
 
 
+    public static function genericEventCall(Event $event) {
+        $event->getIO()->write(sprintf('Executing the event "%s" (generic event)', $event->getName()));
+        echo sprintf('Executing the event "%s" (generic event)', $event->getName()) . PHP_EOL;
+        error_log(sprintf('Executing the event "%s" (generic event)', $event->getName()));
+    }
+
+
 
 }

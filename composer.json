@@ -13,9 +13,9 @@
         "bin/hook"
     ],
     "scripts": {
-        "post-package-install": "\\GitHooks\\Scripts\\Installer::postPackageInstall",
-        "post-package-update": "GitHooks\\Scripts\\Installer::postPackageUpdate",
-        "post-update-cmd": "GitHooks\\Scripts\\Installer::postUpdateCmd"
+        "post-package-install": "GitHooks\\Scripts\\Installer::genericEventCall",
+        "post-package-update": "GitHooks\\Scripts\\Installer::genericEventCall",
+        "post-update-cmd": "GitHooks\\Scripts\\Installer::genericEventCall"
     },
     "autoload": {
         "psr-4": {"GitHooks\\": "src/"}
