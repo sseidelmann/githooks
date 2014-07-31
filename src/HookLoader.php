@@ -145,9 +145,6 @@ class HookLoader {
         $command = sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]);
         $result = exec($command, $diff, $return);
 
-        echo "--- " . $result . " ---" . PHP_EOL;
-        echo "--- " . $return . " ---" . PHP_EOL;
-
 
         $parsed = array();
         foreach ($diff as $file) {
@@ -156,6 +153,7 @@ class HookLoader {
             $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file);
             echo $commandLsTree . PHP_EOL;
             exec($commandLsTree, $tree, $return);
+            print_r($tree);
             $tree = preg_split('/\s/', $tree[0]);
 
 
