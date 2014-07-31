@@ -116,8 +116,8 @@ abstract class AbstractHook {
      * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      * @return void
      */
-    protected function addError($file, $error) {
-        $this->errors[current(explode('.', basename($file)))][$this->getName(true)][] = array(
+    protected function addError(GitFile $file, $error) {
+        $this->errors[$file->getName()][$this->getName(true)][] = array(
             'file'  => $file,
             'error' => $error
         );
