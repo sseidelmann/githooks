@@ -15,6 +15,8 @@ class ConsoleOutput {
 
     private $logger;
 
+    private $silent = false;
+
     /**
      * Returns the logger.
      *
@@ -31,6 +33,7 @@ class ConsoleOutput {
 
     private function __construct() {
         $this->logger = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $this->silent = true;
     }
 
     /**
@@ -40,6 +43,9 @@ class ConsoleOutput {
      * @return void
      */
     private function writePrefix($color = 'blue') {
+        if ($this->silent) {
+            return;
+        }
         $this->logger->write(sprintf('<fg=%s;options=bold>==></fg=%s;options=bold> ', $color, $color));
     }
 
@@ -53,6 +59,9 @@ class ConsoleOutput {
      * @return void
      */
     public function write($message, $newLine = true) {
+        if ($this->silent) {
+            return;
+        }
         $this->logger->write($message, $newLine);
     }
 
@@ -66,6 +75,9 @@ class ConsoleOutput {
      * @return void
      */
     public function debug($message, $newLine = true) {
+        if ($this->silent) {
+            return;
+        }
         $this->writePrefix('blue');
         $this->write(sprintf(
             '<fg=white;options=bold>%s</fg=white;options=bold>',
@@ -82,6 +94,9 @@ class ConsoleOutput {
      * @return void
      */
     public function error($message) {
+        if ($this->silent) {
+            return;
+        }
         $this->writePrefix('red');
         $this->logger->write(sprintf(
             '<fg=white;options=bold>%s</fg=white;options=bold>',
