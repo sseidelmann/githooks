@@ -22,7 +22,7 @@ class Installer {
         $pwd = realpath(getcwd()) . DIRECTORY_SEPARATOR;
 
 
-        $io->write('<fg:cyan>-> Creating new binary file.</fg:cyan>');
+        $io->write('<fg=cyan;options=bold>-></fg=cyan;options=bold> <fg=cyan>Creating new binary file.</fg=cyan>');
         self::createBinary($pwd);
         self::createConfig($pwd);
 
