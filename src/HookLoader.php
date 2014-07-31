@@ -154,10 +154,10 @@ class HookLoader {
             exec($commandLsTree, $tree, $return);
 
             if (count($tree)) {
-                $tree = array(
+                /*$tree = array(
                     1 => '4b825dc642cb6eb9a060e54bf8d69288fbee4904',
                     2 => $file
-                );
+                );*/
             } else {
                 $tree = preg_split('/\s/', $tree[0]);
             }
@@ -166,7 +166,9 @@ class HookLoader {
 
 
             $fileContents = array();
-            exec("git cat-file $tree[1] $tree[2]  2> /dev/null", $fileContents, $return);
+            $command = sprintf("git cat-file $tree[1] $tree[2]  2> /dev/null");
+            echo $command . PHP_EOL;
+            exec($command, $fileContents, $return);
             if ($return > 0) {
 
                 echo "Could not run git cat-file\n\n";
