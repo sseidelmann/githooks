@@ -38,7 +38,7 @@ class PHPLintHook extends AbstractHook {
             unlink($tmp);
 
 */
-            $result = exec(sprintf('echo %s | php -l', escapeshellarg($file->getContent())), $output);
+            $result = exec(sprintf('echo %s | php -l 2>&1', escapeshellarg($file->getContent())), $output);
             echo $result . PHP_EOL;
             print_r($output);
 
