@@ -11,5 +11,8 @@
     ],
     "require": {
         "symfony/class-loader": "2.5.2"
-    }
+    },
+    "bin": [
+        "bin/hook"
+    ]
 }
