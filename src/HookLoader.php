@@ -183,7 +183,12 @@ class HookLoader {
      */
     private function readConfig() {
 
-        $json = file_get_contents(realpath(dirname(__FILE__) . '/../') . DIRECTORY_SEPARATOR . 'config.json');
+        $path = realpath(dirname(__FILE__) . '/../') . DIRECTORY_SEPARATOR . 'config.json';
+        if (!file_exists($path)) {
+            $path = realpath(dirname(__FILE__) . '/../../../../') . DIRECTORY_SEPARATOR . 'config.json';
+        }
+
+        $json = file_get_contents($path);
 
         return json_decode($json,true);
     }
