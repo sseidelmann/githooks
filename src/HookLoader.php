@@ -166,13 +166,13 @@ class HookLoader {
 
 
             $fileContents = array();
-            $command = sprintf("git cat-file $tree[1] $tree[2]  2> /dev/null");
+            $command = "git cat-file $tree[1] $tree[2]  2> /dev/null";
             echo $command . PHP_EOL;
             exec($command, $fileContents, $return);
             if ($return > 0) {
 
                 echo "Could not run git cat-file\n\n";
-                exit(1);
+                // exit(1);
             }
 
             $contents = implode("\n", $fileContents);
