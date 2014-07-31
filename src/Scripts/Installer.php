@@ -17,8 +17,16 @@ class Installer {
         $io = $event->getIO();
         $io->write('Executing the event "postUpdateCmd"');
 
-        print_r($_SERVER);
-        $io->write(getcwd());
+        $pwd = realpath(getcwd()) . DIRECTORY_SEPARATOR;
+
+
+        self::createBinary($pwd);
+
+
+    }
+
+    private static function createBinary($pwd) {
+        exec('cd '.$pwd.' && ln -s vendor/sseidelmann/githooks/bin/hook hook');
     }
 
 }
