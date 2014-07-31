@@ -151,14 +151,12 @@ class HookLoader {
             $tree = array();
             \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
             $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file);
+            echo $commandLsTree . PHP_EOL;
             exec($commandLsTree, $tree, $return);
 
             if (count($tree) < 1) {
-                /*$tree = array(
-                    1 => '4b825dc642cb6eb9a060e54bf8d69288fbee4904',
-                    2 => $file
-                );*/
                 $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', '4b825dc642cb6eb9a060e54bf8d69288fbee4904', $file);
+                echo $commandLsTree . PHP_EOL;
                 exec($commandLsTree, $tree, $return);
             }
             //
