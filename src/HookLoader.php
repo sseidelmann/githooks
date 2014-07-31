@@ -143,7 +143,10 @@ class HookLoader {
     private function getFiles() {
         // Get the changed files
         $command = sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]);
-        exec($command, $diff, $return);
+        $result = exec($command, $diff, $return);
+
+        echo "--- " . $result . " ---" . PHP_EOL;
+        echo "--- " . $return . " ---" . PHP_EOL;
 
 
         $parsed = array();
