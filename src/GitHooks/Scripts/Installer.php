@@ -14,10 +14,12 @@ class Installer {
 
     public static function postPackageInstall(Event $event) {
         $event->getIO()->write('Executing the event "postPackageInstall"');
+        echo 'Executing the event "postPackageInstall"' . PHP_EOL;
     }
 
     public static function postUpdateCmd(Event $event) {
         $event->getIO()->write('Executing the event "postUpdateCmd"');
+        echo 'Executing the event "postUpdateCmd"' . PHP_EOL;
     }
 
 }
