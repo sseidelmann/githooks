@@ -16,9 +16,10 @@
         "bin/hook"
     ],
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "/bin"
     },
     "scripts": {
-        "post-package-install": "\\GitHooks\\Scripts::postPackageInstall"
+        "post-package-install": "\\GitHooks\\Scripts::postPackageInstall",
+        "post-update-cmd": "\\GitHooks\\Scripts::postUpdateCmd"
     }
 }

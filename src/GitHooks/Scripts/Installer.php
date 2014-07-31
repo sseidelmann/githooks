@@ -16,4 +16,8 @@ class Installer {
         $event->getIO()->write('Executing the event "postPackageInstall"');
     }
 
+    public static function postUpdateCmd(Event $event) {
+        $event->getIO()->write('Executing the event "postUpdateCmd"');
+    }
+
 }
