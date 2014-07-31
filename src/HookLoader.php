@@ -259,6 +259,7 @@ class HookLoader {
     }
 
     private function debug($message = null, $mode = 1) {
+        return;
         if (null === $message) {
             echo PHP_EOL;
         } else {
