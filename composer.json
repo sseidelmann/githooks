@@ -14,8 +14,8 @@
     ],
     "scripts": {
         "post-package-install": "\\GitHooks\\Scripts\\Installer::postPackageInstall",
-        "post-package-update": "\\GitHooks\\Scripts\\Installer::postPackageUpdate",
-        "post-update-cmd": "\\GitHooks\\Scripts\\Installer::postUpdateCmd"
+        "post-package-update": "GitHooks\\Scripts\\Installer::postPackageUpdate",
+        "post-update-cmd": "GitHooks\\Scripts\\Installer::postUpdateCmd"
     },
     "autoload": {
         "psr-4": {"GitHooks\\": "src/"}
