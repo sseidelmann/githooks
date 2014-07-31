@@ -81,7 +81,10 @@ abstract class AbstractHook {
      * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      * @return string
      */
-    public function getName() {
+    public function getName($simplyfied = false) {
+        if ($simplyfied) {
+            return strtolower(end(explode('\\', $this->getName())));
+        }
         return get_called_class();
     }
 
@@ -114,7 +117,7 @@ abstract class AbstractHook {
      * @return void
      */
     protected function addError($file, $error) {
-        $this->errors[$file][$this->getName()][] = $error;
+        $this->errors[$file][$this->getName(true)][] = $error;
     }
 
     /**
