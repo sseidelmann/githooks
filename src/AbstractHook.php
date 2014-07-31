@@ -117,7 +117,9 @@ abstract class AbstractHook {
      * @return void
      */
     protected function addError($file, $error) {
-        $this->errors[$file][$this->getName(true)][] = $error;
+        $name = $this->getName(true);
+        echo $name . PHP_EOL;
+        $this->errors[$file][$name][] = $error;
     }
 
     /**
