@@ -30,7 +30,9 @@ class PHPLintHook extends AbstractHook {
             file_put_contents($tmp, $file->getContent());
             @exec('php -l ' . $tmp, $return);
 
-            print_r($return);
+            foreach ($return as $line) {
+                $this->addError($file, $line);
+            }
 
             unlink($tmp);
         }
