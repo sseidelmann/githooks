@@ -10,6 +10,6 @@
         }
     ],
     "require": {
-        "symfony/class-loader": "2.5.x-dev"
+        "symfony/class-loader": "2.5.2"
     }
 }
