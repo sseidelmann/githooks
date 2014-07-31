@@ -28,11 +28,13 @@ class Installer {
 
 
 
-
+        $io->write('<info>Usage:</info>');
     }
 
     private static function createBinary($pwd) {
-        exec('cd '.$pwd.' && ln -s vendor/sseidelmann/githooks/bin/hook hook');
+        if (!file_exists($pwd . 'hook')) {
+            exec('cd '.$pwd.' && ln -s vendor/sseidelmann/githooks/bin/hook hook');
+        }
     }
 
 
