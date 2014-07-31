@@ -148,6 +148,7 @@ class HookLoader {
 
         $parsed = array();
         foreach ($diff as $file) {
+            $tree = array();
             \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
             $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file);
             \GitHooks\Helper\ConsoleOutput::logger()->write('     ' . $commandLsTree);
