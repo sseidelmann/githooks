@@ -15,7 +15,10 @@
     "scripts": {
         "post-package-install": "GitHooks\\Scripts\\Installer::genericEventCall",
         "post-package-update": "GitHooks\\Scripts\\Installer::genericEventCall",
-        "post-update-cmd": "GitHooks\\Scripts\\Installer::genericEventCall"
+        "post-update-cmd": [
+            "echo DEBUGGGGG!!!!!",
+            "GitHooks\\Scripts\\Installer::genericEventCall"
+            ]
     },
     "autoload": {
         "psr-4": {"GitHooks\\": "src/"}
