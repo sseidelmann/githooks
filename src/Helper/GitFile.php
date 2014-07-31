@@ -43,16 +43,6 @@ class GitFile {
     }
 
     /**
-     * Returns the raw index-diff of the file.
-     *
-     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
-     * @return string
-     */
-    public function getRaw() {
-        return $this->raw;
-    }
-
-    /**
      * Returns boolean if extension matches.
      *
      * @param string $extension the extension.
@@ -63,5 +53,15 @@ class GitFile {
     public function isValidExtension($extension) {
         $pattern = sprintf('/\.%s$/', $extension);
         return preg_match($pattern, $this->getName());
+    }
+
+    /**
+     * Returns the content of the file.
+     *
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     * @return string
+     */
+    public function getContent() {
+        return $this->content;
     }
 }
