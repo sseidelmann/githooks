@@ -121,11 +121,11 @@ class HookLoader {
 
         if ($this->getHooks() > 0) {
             foreach ($this->getHooks() as $hook) {
-                \GitHooks\Helper\ConsoleOutput::logger()->debug('running ' . $hook->getName(), false);
+                \GitHooks\Helper\ConsoleOutput::logger()->debug('running ' . $hook->getName());
                 if ($hook->run()) {
-                    \GitHooks\Helper\ConsoleOutput::logger()->write('  <fg=green;options=bold>√</fg=green;options=bold>');
+                    \GitHooks\Helper\ConsoleOutput::logger()->write($hook->getName() . '  <fg=green;options=bold>√</fg=green;options=bold>');
                 } else {
-                    \GitHooks\Helper\ConsoleOutput::logger()->write('  <fg=red;options=bold>†</fg=red;options=bold>');
+                    \GitHooks\Helper\ConsoleOutput::logger()->write($hook->getName() . '  <fg=red;options=bold>†</fg=red;options=bold>');
                 }
 
             }
