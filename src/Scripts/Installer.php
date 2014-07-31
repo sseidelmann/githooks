@@ -10,6 +10,8 @@ namespace GitHooks\Scripts;
 
 use Composer\Script\Event;
 
+error_log('Loaded file ' . __FILE__);
+
 class Installer {
 
     public static function postPackageInstall(Event $event) {
