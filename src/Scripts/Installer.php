@@ -13,7 +13,23 @@ use Composer\Script\Event;
 
 class Installer {
 
+
+    private $io;
+
+    public function __construct(Event $event) {
+        $this->io = $event->getIO();
+    }
+
+    public function write($message) {
+        $this->io->write(sprintf('<fg=blue;options=bold>==></fg=blue;options=bold> <fg=white;options=bold>%s</fg=white;options=bold>', $message));
+    }
+
+
+
     public static function postUpdateCmd(Event $event) {
+
+        $instance = new self($event);
+
         /* @var $io \Composer\IO\ConsoleIO */
         $io = $event->getIO();
 
@@ -22,27 +38,30 @@ class Installer {
         $pwd = realpath(getcwd()) . DIRECTORY_SEPARATOR;
 
 
-        $io->write('<fg=blue;options=bold>==></fg=blue;options=bold> <fg=white;options=bold>Creating new binary file.</fg=white;options=bold>');
-        self::createBinary($pwd);
-        self::createConfig($pwd);
+        $instance->createBinary($pwd);
+        $instance->createConfig($pwd);
 
 
 
-
-        $io->write('<info>Usage:</info>');
+        $instance->write('Usage:');
+        $io->write('   ./hook check pre-receive');
     }
 
-    private static function createBinary($pwd) {
+
+
+    public function createBinary($pwd) {
+        $this->write('Updating binary file');
         if (!file_exists($pwd . 'hook')) {
             exec('cd '.$pwd.' && ln -s vendor/sseidelmann/githooks/bin/hook hook');
         }
     }
 
 
-    private static function createConfig($pwd) {
+    public function createConfig($pwd) {
         $file = $pwd . 'config.json';
 
         if (!file_exists($file)) {
+            $this->write('Creating new config file');
             file_put_contents('config.json', '{
                 "hooks": []
             }');
