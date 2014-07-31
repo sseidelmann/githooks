@@ -1,7 +1,13 @@
 #!/usr/bin/php
 <?php
 
-define('VENDOR_DIRECTORY', realpath(dirname(__FILE__) . '/../../../') . DIRECTORY_SEPARATOR);
+$path = realpath(dirname(__FILE__) . '/../../../') . DIRECTORY_SEPARATOR;
+if (!file_exists($path . 'autoload.php')) {
+    $path = realpath(dirname(__FILE__) . '/../vendor/') . DIRECTORY_SEPARATOR;
+}
+
+define('VENDOR_DIRECTORY', $path);
+
 
 include VENDOR_DIRECTORY . 'autoload.php';
 
