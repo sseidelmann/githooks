@@ -236,6 +236,7 @@ class HookLoader {
      */
     private function parseInputOptions() {
         print_r($this->argvInput);
+        exit(1);
         if (isset($this->argvInput[1])) {
             $this->setMode($this->argvInput[1]);
             if (isset($this->argvInput[2])) {
