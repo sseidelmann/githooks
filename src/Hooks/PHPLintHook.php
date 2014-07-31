@@ -28,7 +28,7 @@ class PHPLintHook extends AbstractHook {
 
             $tmp = tempnam('/tmp/', 'phplint');
             file_put_contents($tmp, $file->getContent());
-            exec('php -l ' . $tmp, $return);
+            @exec('php -l ' . $tmp, $return);
 
             print_r($return);
 

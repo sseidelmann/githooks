@@ -24,6 +24,14 @@ abstract class AbstractHook {
     private $files;
 
     /**
+     * Saves the errors.
+     *
+     * @var    array
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     */
+    private $errors = array();
+
+    /**
      * Creates the hook instance.
      *
      * @param $config
@@ -70,7 +78,7 @@ abstract class AbstractHook {
     /**
      * Returns the name of the hook.
      *
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      * @return string
      */
     public function getName() {
@@ -81,7 +89,7 @@ abstract class AbstractHook {
      * Starts the hook.
      *
      * @return bool
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     abstract public function run();
 
@@ -89,9 +97,33 @@ abstract class AbstractHook {
      * Returns a logger instance.
      *
      * @return ConsoleOutput
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     protected function logger() {
         return ConsoleOutput::logger();
+    }
+
+
+    /**
+     * Adds an error to the output.
+     *
+     * @param string $file the current file.
+     * @param string $error the error message
+     *
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     * @return void
+     */
+    protected function addError($file, $error) {
+        $this->errors[$file][$this->getName()][] = $error;
+    }
+
+    /**
+     * Returns the error array.
+     *
+     * @return array
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     */
+    public function getErrors() {
+        return $this->errors;
     }
 }
