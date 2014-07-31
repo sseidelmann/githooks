@@ -67,6 +67,16 @@ class GitFile {
     }
 
     /**
+     * Returns the raw index-diff of the file.
+     *
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     * @return string
+     */
+    public function getRaw() {
+        return $this->raw;
+    }
+
+    /**
      * Returns boolean if extension matches.
      *
      * @param string $extension the extension.
