@@ -1,0 +1,12 @@
+{
+    "name": "sseidelmann/githooks",
+    "description": "A Framework for managing git hooks",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Sebastian Seidelmann",
+            "email": "sebastian.seidelmann@googlemail.com"
+        }
+    ]
+}
