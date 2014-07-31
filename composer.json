@@ -8,5 +8,8 @@
             "name": "Sebastian Seidelmann",
             "email": "sebastian.seidelmann@googlemail.com"
         }
-    ]
+    ],
+    "require": {
+        "symfony/class-loader": "2.5.x-dev"
+    }
 }
