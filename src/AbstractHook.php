@@ -9,11 +9,19 @@
 namespace GitHooks;
 
 
+use GitHooks\Helper\ConsoleOutput;
+use GitHooks\Helper\GitFile;
+
 abstract class AbstractHook {
 
     const DEFAULT_PRIORITY = 1000;
 
     private $config;
+
+    /**
+     * @var GitFile[]
+     */
+    private $files;
 
     /**
      * Creates the hook instance.
@@ -25,6 +33,28 @@ abstract class AbstractHook {
      */
     public final function __construct($config) {
         $this->config = $config;
+    }
+
+    /**
+     * Adds the files to check.
+     *
+     * @param array $files the files
+     *
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     * @return void
+     */
+    public final function setFiles(array $files = array()) {
+        $this->files = $files;
+    }
+
+    /**
+     * Returns the files for this push.
+     *
+     * @return Helper\GitFile[]
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     */
+    protected function getFiles() {
+        return $this->files;
     }
 
     /**
@@ -54,4 +84,14 @@ abstract class AbstractHook {
      * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
      */
     abstract public function run();
+
+    /**
+     * Returns a logger instance.
+     *
+     * @return ConsoleOutput
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     */
+    protected function logger() {
+        return ConsoleOutput::logger();
+    }
 }

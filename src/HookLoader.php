@@ -9,6 +9,7 @@
 
 namespace GitHooks;
 
+use GitHooks\Helper\GitFile;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class HookLoader {
@@ -98,17 +99,23 @@ class HookLoader {
             return;
         }
 
+
+        $files = $this->getFiles();
+
+
         $hooks = $this->config['hooks'];
         \GitHooks\Helper\ConsoleOutput::logger()->debug('searching available hooks for ' . $this->method);
         if (isset($hooks[$this->method])) {
             $hook = $hooks[$this->method];
             foreach ($hook as $class => $hookConfig) {
-                $this->addHook(new $class($hookConfig));
+
+                /* @var $hookInstance AbstractHook */
+                $hookInstance = new $class($hookConfig);
+                $hookInstance->setFiles($files);
+
+                $this->addHook($hookInstance);
             }
         }
-
-        $files = $this->getFiles();
-        print_r($files);
 
         \GitHooks\Helper\ConsoleOutput::logger()->write('');
 
@@ -129,7 +136,7 @@ class HookLoader {
      * Get the files.
      *
      * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
-     * @return array
+     * @return GitFile[]
      */
     private function getFiles() {
         exec("git rev-parse --verify HEAD 2> /dev/null", $set, $return);
@@ -141,8 +148,12 @@ class HookLoader {
 
         exec("git diff-index --cached --full-index {$against}", $files);
 
+        $parsed = array();
+        foreach ($files as $file) {
+            $parsed[] = new GitFile($file);
+        }
 
-        return $files;
+        return $parsed;
     }
 
     /**

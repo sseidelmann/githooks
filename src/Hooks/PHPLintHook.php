@@ -9,6 +9,7 @@
 namespace GitHooks\Hooks;
 
 use GitHooks\AbstractHook;
+use GitHooks\Helper\ConsoleOutput;
 
 class PHPLintHook extends AbstractHook {
 
@@ -19,7 +20,14 @@ class PHPLintHook extends AbstractHook {
      * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
      */
     public function run() {
-        // echo __METHOD__ . PHP_EOL;
+
+        foreach ($this->getFiles() as $file) {
+
+            $this->logger()->debug('Checking ' . $file->getName());
+            $this->logger()->debug('  isDeleted:        ' . $file->isDeleted());
+            $this->logger()->debug('  isValidExtension: ' . $file->isValidExtension('php'));
+
+        }
 
 
         return true;
