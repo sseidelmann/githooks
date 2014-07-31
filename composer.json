@@ -17,5 +17,8 @@
     ],
     "config": {
         "bin-dir": "bin"
+    },
+    "scripts": {
+        "post-package-install": "\\GitHooks\\Scripts::postPackageInstall"
     }
 }
