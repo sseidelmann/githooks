@@ -21,6 +21,7 @@ class Installer {
 
 
         self::createBinary($pwd);
+        self::createConfig($pwd);
 
 
     }
@@ -29,4 +30,14 @@ class Installer {
         exec('cd '.$pwd.' && ln -s vendor/sseidelmann/githooks/bin/hook hook');
     }
 
+
+    private static function createConfig($pwd) {
+        $file = $pwd . 'config.json';
+
+        if (!file_exists($file)) {
+            file_put_contents('config.json', '{
+                "hooks": []
+            }');
+        }
+    }
 }
