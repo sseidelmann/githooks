@@ -139,29 +139,15 @@ class HookLoader {
      * @return GitFile[]
      */
     private function getFiles() {
-        /*
-        exec("git rev-parse --verify HEAD 2> /dev/null", $set, $return);
-
-        $against = $return === 0
-            ? 'HEAD'
-            // or: diff against an empty tree object
-            : '4b825dc642cb6eb9a060e54bf8d69288fbee4904';
-
-        exec("git diff-index --cached --full-index {$against}", $files);
-        */
-
+        // Get the changed files
         $command = sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]);
-        echo $command . PHP_EOL;
         exec($command, $diff, $return);
-
-        print_r($diff);
 
 
         $parsed = array();
         foreach ($diff as $file) {
-            echo $file . PHP_EOL;
             \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
-            $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5], $file));
+            $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file);
             \GitHooks\Helper\ConsoleOutput::logger()->write('     ' . $commandLsTree);
             exec($commandLsTree, $tree, $return);
             $tree = preg_split('/\s/', $tree[0]);
