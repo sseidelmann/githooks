@@ -227,7 +227,7 @@ class HookLoader {
         $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit), false);
         $files       = array();
         foreach ($commitFiles->output as $file) {
-            $files[] = new GitFile(
+            $files[$file] = new GitFile(
                 $file,
                 implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file), false)->output)
             );
@@ -250,7 +250,11 @@ class HookLoader {
         $files   = array();
 
         foreach ($commits as $commit) {
-            $files = array_merge($files, $this->getFilesForCommit($commit));
+            foreach ($this->getFilesForCommit($commit) as $filename => $gitfile) {
+                if (!isset($files[$filename])) {
+                    $files[$filename] = $gitfile;
+                }
+            }
         }
 
         return $files;
