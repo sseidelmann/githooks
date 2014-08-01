@@ -129,7 +129,10 @@ class HookLoader {
 
         if (count($errors) > 0) {
             echo "----------------------------------" . PHP_EOL;
-            print_r($errors);
+            // print_r($errors);
+            foreach ($errors as $error) {
+
+            }
             echo "----------------------------------" . PHP_EOL;
         }
     }
@@ -229,7 +232,8 @@ class HookLoader {
         foreach ($commitFiles->output as $file) {
             $files[$file] = new GitFile(
                 $file,
-                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file), false)->output)
+                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file), false)->output),
+                $commit
             );
         }
 
