@@ -27,9 +27,18 @@ class GitFile {
      */
     private $content;
 
-    public function __construct($name, $content) {
+    /**
+     * Saves the commit sha of the file.
+     *
+     * @var    string
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     */
+    private $commit;
+
+    public function __construct($name, $content, $commit) {
         $this->name    = $name;
         $this->content = $content;
+        $this->commit  = $commit;
     }
 
     /**
