@@ -158,18 +158,16 @@ class HookLoader {
      */
     private function getFiles() {
 
-        $this->execute(sprintf('git cat-file -p %s^{tree}', trim($this->argvInput[5])));
-        $this->execute(sprintf('git rev-parse --verify HEAD 2> /dev/null', trim($this->argvInput[5])));
+        // $this->execute(sprintf('git cat-file -p %s^{tree}', trim($this->argvInput[5])));
+        // $this->execute(sprintf('git rev-parse --verify HEAD 2> /dev/null', trim($this->argvInput[5])));
 
 
 
-        // Get the changed files
-        $command = sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]);
-        $result = exec($command, $diff, $return);
+        $gitDiffResult = $this->execute(sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
 
 
         $parsed = array();
-        foreach ($diff as $file) {
+        foreach ($gitDiffResult->output as $file) {
             $tree = array();
             \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
             $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file);
