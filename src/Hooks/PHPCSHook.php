@@ -36,7 +36,7 @@ class PHPCSHook extends AbstractHook {
                 file_put_contents($tempname, $file->getContent());
 
                 $command = sprintf(
-                    '%s --standard=%s %s',
+                    '%s --standard=%s --report=xml %s',
                     $this->getPHPCSExecutablePath(),
                     $this->getStandard(),
                     $tempname
@@ -47,8 +47,12 @@ class PHPCSHook extends AbstractHook {
 
                 $this->addError($file, $command);
 
-                foreach ($output as $line) {
-                    $this->addError($file, $line);
+
+                if (count($output) > 0) {
+                    $xml = new \SimpleXMLElement(implode("\n", $output));
+                    foreach ($xml->file->error as $error) {
+                        print_r($error);
+                    }
                 }
                 unlink($tempname);
             }
