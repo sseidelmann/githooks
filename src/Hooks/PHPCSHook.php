@@ -58,7 +58,7 @@ class PHPCSHook extends AbstractHook {
                         $column     = $attributes['column'];
                         $message    = (string) $error;
 
-                        $this->addError($file, sprintf('%s (in Line %s)', $message, $line));
+                        $this->addError($file, sprintf('%s on line %s', $message, $line));
                     }
                 }
                 unlink($tempname);
