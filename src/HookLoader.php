@@ -143,7 +143,7 @@ class HookLoader {
             }
 
             echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' . PHP_EOL;
-            implode(PHP_EOL, $buffer);
+            echo implode(PHP_EOL, $buffer);
             echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' . PHP_EOL;
 
             exit(1);
