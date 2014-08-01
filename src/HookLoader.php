@@ -134,7 +134,7 @@ class HookLoader {
         }
     }
 
-    private function execute($command) {
+    private function execute($command, $displayDebugOutput = true) {
 
         echo PHP_EOL . "~~~~~~~~~~~~~~~~~~ COMMAND ~~~~~~~~~~~~~~~~~~" . PHP_EOL;
         echo " ~ '" . $command . "'" . PHP_EOL;
@@ -146,18 +146,19 @@ class HookLoader {
             'return' => $return
         );
 
-        // print_r($returnObject);
-        echo "   | result: " . $result . PHP_EOL;
-        echo "   | return: " . $return . PHP_EOL;
-        foreach ($output as $index => $line) {
-            $out = "        ";
-            if ($index == 0) {
-                $out = "output: ";
+        if ($displayDebugOutput) {
+            echo "   | result: " . $result . PHP_EOL;
+            echo "   | return: " . $return . PHP_EOL;
+            foreach ($output as $index => $line) {
+                $out = "        ";
+                if ($index == 0) {
+                    $out = "output: ";
+                }
+                echo "   | " . $out . $line . PHP_EOL;
             }
-            echo "   | " . $out . $line . PHP_EOL;
+            echo PHP_EOL;
+            echo PHP_EOL;
         }
-        echo PHP_EOL;
-        echo PHP_EOL;
 
         return $returnObject;
     }
@@ -221,7 +222,23 @@ class HookLoader {
                 // Found no existing file
 
                 // Get all commits
-                $this->execute(sprintf('git show --format=format:%%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()));
+                $commits = $this->execute(sprintf('git show --format=format:%%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()), false);
+                for ($i = 0; $i < count($commits->output); $i++) {
+                    $line = $commits->output[$i];
+                    if (strpos($line, 'diff --git ') !== false) {
+                        $commitShaIds[] = $commits->output[$i-1];
+                    }
+                }
+
+                foreach ($commitShaIds as $index => $commit) {
+                    $commitFiles = $this->execute(sprintf('git diff --name-only commit^..commit', $commit, $commit));
+                    if ($index == 3) {
+                        break;
+                    }
+                }
+
+
+
                 /* $this->execute(sprintf('git diff --name-only %s^..%s', $this->getOldRef(), $this->getNewRef()));
                 $this->execute(sprintf('git show --format=format:%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef())); */
 
