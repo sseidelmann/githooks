@@ -83,7 +83,7 @@ class PHPCSHook extends AbstractHook {
         }
 
         exec(sprintf('%s -i', $this->getPHPCSExecutablePath()), $output);
-        $standardsInstalled = explode(' ', str_replace('The installed coding standards are ', '', $output[0]));
+        $standardsInstalled = explode(' ', str_replace(array('The installed coding standards are ', ','), '', $output[0]));
         if (!in_array($standard, $standardsInstalled)) {
             $standard = $standardsInstalled[0];
         }
