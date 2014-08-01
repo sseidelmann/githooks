@@ -127,17 +127,23 @@ class HookLoader {
         }
 
         if (count($errors) > 0) {
-            echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' . PHP_EOL;
+            $buffer = array();
             foreach ($errors as $file => $error) {
-                echo $file . ':' . PHP_EOL;
-                $length = max(array_map('strlen', array_keys($error)));
+                $output   = '';
+                $failures = 0;
+                $length   = max(array_map('strlen', array_keys($error)));
+
                 foreach ($error as $hook => $errorLines) {
-                    // echo '  ' . $hook . PHP_EOL;
                     foreach ($errorLines as $errorLine) {
-                        echo '   ' . str_pad('['.strtoupper($hook).']', $length+2, ' ', STR_PAD_RIGHT) . '  ' . $errorLine['error'] . PHP_EOL;
+                        $output .= '   ' . str_pad('['.strtoupper($hook).']', $length+2, ' ', STR_PAD_RIGHT) . '  ' . $errorLine['error'] . PHP_EOL;
+                        $failures++;
                     }
                 }
+                $buffer[] = $file . ' ('.$failures.' error'.($failures>0?'s':'').'):' . PHP_EOL . $output;
             }
+
+            echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' . PHP_EOL;
+            implode(PHP_EOL, $buffer);
             echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' . PHP_EOL;
 
             exit(1);
