@@ -163,6 +163,40 @@ class HookLoader {
     }
 
     /**
+     * Returns the base sha1
+     *
+     * @return mixed
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     *
+     */
+    private function getOldRef() {
+        return $this->argvInput[3];
+    }
+
+    /**
+     * Returns the base sha1
+     *
+     * @return mixed
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     *
+     */
+    private function getNewRef() {
+        return $this->argvInput[4];
+    }
+
+    /**
+     * Returns the base sha1
+     *
+     * @return mixed
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     *
+     */
+    private function getRefName() {
+        return trim($this->argvInput[5]);
+    }
+
+
+    /**
      * Get the files.
      *
      * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
@@ -185,10 +219,16 @@ class HookLoader {
 
             if (count($treeResult->output) < 1) {
                 // Found no existing file
+                
+                // Get all commits
+                $this->execute(sprintf('git show --format=format:%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()));
+                /* $this->execute(sprintf('git diff --name-only %s^..%s', $this->getOldRef(), $this->getNewRef()));
+                $this->execute(sprintf('git show --format=format:%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef())); */
 
-                // $this->execute(sprintf('git rev-parse --verify %s 2> /dev/null', trim($this->argvInput[5])));
+
+                /* $this->execute(sprintf('git rev-parse --verify %s 2> /dev/null', trim($this->argvInput[5])));
                 $this->execute(sprintf('git diff-index --cached --full-index %s', $this->argvInput[3]));
-                /*$this->execute(sprintf('git diff-index --full-index %s', $this->argvInput[3]));
+                $this->execute(sprintf('git diff-index --full-index %s', $this->argvInput[3]));
                 $this->execute(sprintf('git diff-index %s', $this->argvInput[3]));
                 $this->execute(sprintf('git show %s:%s', $this->argvInput[4], $file));
                 exec( "git diff-index --cached --full-index {$against}", $files );*/
