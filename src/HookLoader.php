@@ -224,12 +224,12 @@ class HookLoader {
      * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
      */
     private function getFilesForCommit($commit) {
-        $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit));
+        $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit), false);
         $files       = array();
         foreach ($commitFiles->output as $file) {
             $files[] = new GitFile(
                 $file,
-                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file))->output)
+                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file), false)->output)
             );
         }
 
