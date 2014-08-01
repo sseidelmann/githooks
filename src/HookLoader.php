@@ -198,12 +198,63 @@ class HookLoader {
 
 
     /**
+     * Return all commits.
+     *
+     * @return array
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     */
+    private function getCommits() {
+        $commits = $this->execute(sprintf('git show --format=format:%%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()), false);
+        for ($i = 0; $i < count($commits->output); $i++) {
+            $line = $commits->output[$i];
+            if (strpos($line, 'diff --git ') !== false) {
+                $commitShaIds[] = $commits->output[$i-1];
+            }
+        }
+
+        return $commitShaIds;
+    }
+
+    /**
+     * Returns all files from specified commit.
+     *
+     * @param $commit
+     *
+     * @return mixed
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     */
+    private function getFilesForCommit($commit) {
+        $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit));
+        $files       = array();
+        foreach ($commitFiles->output as $file) {
+            $files[] = new GitFile(
+                $file,
+                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file))->output)
+            );
+        }
+
+        return $files;
+    }
+
+
+    /**
      * Get the files.
      *
      * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
      * @return GitFile[]
      */
     private function getFiles() {
+
+
+        $commits = $this->getCommits();
+        $files   = array();
+
+        foreach ($commits as $commit) {
+            $files = array_merge($files, $this->getFilesForCommit($commit));
+        }
+
+        return $files;
+
 
         // $this->execute(sprintf('git cat-file -p %s^{tree}', trim($this->argvInput[5])));
         // $this->execute(sprintf('git rev-parse --verify HEAD 2> /dev/null', trim($this->argvInput[5])));
@@ -231,12 +282,14 @@ class HookLoader {
                 }
 
                 foreach ($commitShaIds as $index => $commit) {
+                    // Get the changed files.
                     $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit));
                     if ($index == 3) {
                         break;
                     }
 
                     foreach ($commitFiles->output as $fileName) {
+                        // Get contents
                         $fileInformation = $this->execute(sprintf('git show %s:%s', $commit, $fileName));
                     }
                 }
