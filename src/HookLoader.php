@@ -126,6 +126,7 @@ class HookLoader {
         }
 
         if (count($errors) > 0) {
+            echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
             foreach ($errors as $file => $error) {
                 echo $file . ':' . PHP_EOL;
                 foreach ($error as $hook => $errorLines) {
@@ -136,6 +137,7 @@ class HookLoader {
                 }
                 echo '------------------------' . PHP_EOL;
             }
+            echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 
             exit(1);
         }
