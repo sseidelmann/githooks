@@ -250,7 +250,7 @@ class HookLoader {
         $files       = array();
 
         foreach ($commitFiles->output as $file) {
-            $gitShow = $this->execute(sprintf('git show %s:%s', $commit, $file), true);
+            $gitShow = $this->execute(sprintf('git show %s:%s', $commit, $file), false);
             if ($gitShow->return != 0) {
                 continue;
             }
