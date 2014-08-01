@@ -169,23 +169,23 @@ class HookLoader {
         $parsed = array();
         foreach ($gitDiffResult->output as $file) {
             $tree = array();
-            \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
-            $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file);
-            echo $commandLsTree . PHP_EOL;
-            exec($commandLsTree, $tree, $return);
+            // \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
+            $treeResult = $this->execute(sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file));
+            // exec($commandLsTree, $tree, $return);
 
+            /*
             if (count($tree) < 1) {
                 $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', '4b825dc642cb6eb9a060e54bf8d69288fbee4904', $file);
                 echo $commandLsTree . PHP_EOL;
                 exec($commandLsTree, $tree, $return);
             }
-            //
-            $tree = preg_split('/\s/', $tree[0]);
+            */
+            $tree = preg_split('/\s/', $treeResult->output[0]);
 
 
 
             $fileContents = array();
-            $command = "git cat-file $tree[1] $tree[2]  2> /dev/null";
+            $command = "git cat-file $treeResult->output[1] $treeResult->output[2]  2> /dev/null";
             echo $command . PHP_EOL;
             exec($command, $fileContents, $return);
             if ($return > 0) {
