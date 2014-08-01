@@ -134,6 +134,22 @@ class HookLoader {
         }
     }
 
+    private function execute($command) {
+
+        echo " ~ '" . $command . "'";
+        $result = exec($command, $output, $return);
+
+        $returnObject = (object) array(
+            'result' => $result,
+            'output' => $output,
+            'return' => $return
+        );
+
+        print_r($returnObject);
+
+        return $returnObject;
+    }
+
     /**
      * Get the files.
      *
@@ -141,6 +157,12 @@ class HookLoader {
      * @return GitFile[]
      */
     private function getFiles() {
+
+        $this->execute(sprintf('git cat-file -p %s^{tree}', trim($this->argvInput[5])));
+        $this->execute(sprintf('git rev-parse --verify HEAD 2> /dev/null', trim($this->argvInput[5])));
+
+
+
         // Get the changed files
         $command = sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]);
         $result = exec($command, $diff, $return);
