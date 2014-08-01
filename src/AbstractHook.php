@@ -110,7 +110,7 @@ abstract class AbstractHook {
     /**
      * Adds an error to the output.
      *
-     * @param string $file the current file.
+     * @param string $file  the current file.
      * @param string $error the error message
      *
      * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
@@ -119,7 +119,8 @@ abstract class AbstractHook {
     protected function addError(GitFile $file, $error) {
         $this->errors[$file->getName()][$this->getName(true)][] = array(
             'file'  => $file,
-            'error' => $error
+            'error' => $error,
+            'hook'  => get_called_class()
         );
     }
 
