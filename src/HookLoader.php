@@ -136,7 +136,11 @@ class HookLoader {
                 }
                 echo '------------------------' . PHP_EOL;
             }
+
+            exit(1);
         }
+
+        exit(0);
     }
 
     private function execute($command, $displayDebugOutput = true) {
