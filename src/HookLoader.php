@@ -159,7 +159,7 @@ class HookLoader {
             echo PHP_EOL . "~~~~~~~~~~~~~~~~~~ COMMAND ~~~~~~~~~~~~~~~~~~" . PHP_EOL;
             echo " ~ '" . $command . "'" . PHP_EOL;
         }
-        
+
         $result = exec($command, $output, $return);
 
         $returnObject = (object) array(
@@ -248,10 +248,16 @@ class HookLoader {
     private function getFilesForCommit($commit) {
         $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit), false);
         $files       = array();
+
         foreach ($commitFiles->output as $file) {
+            $gitShow = $this->execute(sprintf('git show %s:%s', $commit, $file), true);
+            if ($gitShow->return != 0) {
+                continue;
+            }
+
             $files[$file] = new GitFile(
                 $file,
-                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file), true)->output),
+                implode("\n", $gitShow->output),
                 $commit
             );
         }
