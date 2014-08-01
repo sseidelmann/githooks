@@ -349,7 +349,7 @@ class HookLoader {
         $json = file_get_contents($path);
         */
 
-        $gitConfig = $this->execute('git show HEAD:hookconfig.json');
+        $gitConfig = $this->execute('git show HEAD:hookconfig.json', false);
         if ($gitConfig->return != 0) {
             exit(1);
         }
