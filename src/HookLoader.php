@@ -149,7 +149,7 @@ class HookLoader {
         echo "   | result: " . $result . PHP_EOL;
         echo "   | return: " . $return . PHP_EOL;
         foreach ($output as $index => $line) {
-            $out = "        "
+            $out = "        ";
             if ($index == 0) {
                 $out = "output: ";
             }
