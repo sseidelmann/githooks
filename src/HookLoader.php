@@ -155,8 +155,11 @@ class HookLoader {
 
     private function execute($command, $displayDebugOutput = true) {
 
-        // echo PHP_EOL . "~~~~~~~~~~~~~~~~~~ COMMAND ~~~~~~~~~~~~~~~~~~" . PHP_EOL;
-        // echo " ~ '" . $command . "'" . PHP_EOL;
+        if ($displayDebugOutput) {
+            echo PHP_EOL . "~~~~~~~~~~~~~~~~~~ COMMAND ~~~~~~~~~~~~~~~~~~" . PHP_EOL;
+            echo " ~ '" . $command . "'" . PHP_EOL;
+        }
+        
         $result = exec($command, $output, $return);
 
         $returnObject = (object) array(
@@ -165,7 +168,7 @@ class HookLoader {
             'return' => $return
         );
 
-        /*if ($displayDebugOutput) {
+        if ($displayDebugOutput) {
             echo "   | result: " . $result . PHP_EOL;
             echo "   | return: " . $return . PHP_EOL;
             foreach ($output as $index => $line) {
@@ -177,7 +180,7 @@ class HookLoader {
             }
             echo PHP_EOL;
             echo PHP_EOL;
-        }*/
+        }
 
         return $returnObject;
     }
@@ -248,7 +251,7 @@ class HookLoader {
         foreach ($commitFiles->output as $file) {
             $files[$file] = new GitFile(
                 $file,
-                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file), false)->output),
+                implode("\n", $this->execute(sprintf('git show %s:%s', $commit, $file), true)->output),
                 $commit
             );
         }
