@@ -42,7 +42,14 @@ class PHPCSHook extends AbstractHook {
                     $tempname
                 );
 
+                $output = array();
+                exec($command, $output);
+
                 $this->addError($file, $command);
+
+                foreach ($output as $line) {
+                    $this->addError($file, $line);
+                }
                 unlink($tempname);
             }
         }
