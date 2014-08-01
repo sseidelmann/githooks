@@ -235,6 +235,10 @@ class HookLoader {
                     if ($index == 3) {
                         break;
                     }
+
+                    foreach ($commitFiles->output as $fileName) {
+                        $fileInformation = $this->execute(sprintf('git show %s:%s', $commit, $fileName));
+                    }
                 }
 
 
