@@ -134,7 +134,7 @@ class HookLoader {
                 foreach ($error as $hook => $errorLines) {
                     echo '  ' . $hook . PHP_EOL;
                     foreach ($errorLines as $errorLine) {
-                        echo '    - ' . $errorLine->error . PHP_EOL;
+                        echo '    - ' . $errorLine['error'] . PHP_EOL;
                     }
                 }
                 echo '------------------------' . PHP_EOL;
