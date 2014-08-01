@@ -126,6 +126,21 @@ abstract class AbstractHook {
     }
 
     /**
+     * Returns the erros for the given file.
+     *
+     * @param GitFile $file the file
+     *
+     * @return array
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     */
+    protected function getErrorsForFile(GitFile $file) {
+        if (isset(self::$errors[$file->getName()])) {
+            return self::$errors[$file->getName()];
+        }
+        return array();
+    }
+
+    /**
      * Returns the error array.
      *
      * @return array

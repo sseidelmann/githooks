@@ -32,6 +32,12 @@ class PHPCSHook extends AbstractHook {
         foreach ($this->getFiles() as $file) {
             if ($file->isValidExtension('php')) {
 
+                $errors = $this->getErrorsForFile($file);
+                if (isset($errors['phplinthook'])) {
+                    continue;
+                }
+
+
                 $tempname = tempnam('/tmp/', 'phpcs') . '.php';
                 file_put_contents($tempname, $file->getContent());
 
