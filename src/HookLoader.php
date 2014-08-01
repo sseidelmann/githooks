@@ -136,6 +136,7 @@ class HookLoader {
 
     private function execute($command) {
 
+        echo PHP_EOL . "~~~~~~~~~~~~~~~~~~ COMMAND ~~~~~~~~~~~~~~~~~~" . PHP_EOL;
         echo " ~ '" . $command . "'" . PHP_EOL;
         $result = exec($command, $output, $return);
 
@@ -155,6 +156,8 @@ class HookLoader {
             }
             echo "   | " . $out . $line . PHP_EOL;
         }
+        echo PHP_EOL;
+        echo PHP_EOL;
 
         return $returnObject;
     }
