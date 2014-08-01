@@ -121,8 +121,9 @@ class HookLoader {
         if ($this->getHooks() > 0) {
             foreach ($this->getHooks() as $hook) {
                 $return = $hook->run();
-                $errors = array_merge($errors, $hook->getErrors());
+                // $errors = array_merge($errors, $hook->getErrors());
             }
+            $errors = $hook->getErrors();
         }
 
         if (count($errors) > 0) {

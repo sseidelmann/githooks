@@ -29,7 +29,7 @@ abstract class AbstractHook {
      * @var    array
      * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
-    private $errors = array();
+    private static $errors = array();
 
     /**
      * Creates the hook instance.
@@ -117,7 +117,8 @@ abstract class AbstractHook {
      * @return void
      */
     protected function addError(GitFile $file, $error) {
-        $this->errors[$file->getName()][$this->getName(true)][] = array(
+        //$this->errors[$file->getName()][$this->getName(true)][] = array(
+        self::$errors[$file->getName()][$this->getName(true)][] = array(
             'file'  => $file,
             'error' => $error,
             'hook'  => get_called_class()
@@ -131,6 +132,7 @@ abstract class AbstractHook {
      * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     public function getErrors() {
-        return $this->errors;
+        //return $this->errors;
+        return self::$errors;
     }
 }
