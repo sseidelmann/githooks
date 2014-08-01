@@ -340,22 +340,23 @@ class HookLoader {
      */
     private function readConfig() {
 
-        /*
         $path = realpath(dirname(__FILE__) . '/../') . DIRECTORY_SEPARATOR . 'config.json';
         if (!file_exists($path)) {
             $path = realpath(dirname(__FILE__) . '/../../../../') . DIRECTORY_SEPARATOR . 'config.json';
         }
 
         $json = file_get_contents($path);
-        */
 
+        /*
         $gitConfig = $this->execute('git show HEAD:hookconfig.json', false);
         if ($gitConfig->return != 0) {
             exit(1);
         }
+        $json = implode("\n", $gitConfig->output);
+        */
 
 
-        return json_decode(implode("\n", $gitConfig->output),true);
+        return json_decode($json,true);
     }
 
     /**
