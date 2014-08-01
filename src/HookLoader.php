@@ -193,7 +193,7 @@ class HookLoader {
      * Returns the base sha1
      *
      * @return mixed
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      *
      */
     private function getOldRef() {
@@ -204,7 +204,7 @@ class HookLoader {
      * Returns the base sha1
      *
      * @return mixed
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      *
      */
     private function getNewRef() {
@@ -215,7 +215,7 @@ class HookLoader {
      * Returns the base sha1
      *
      * @return mixed
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      *
      */
     private function getRefName() {
@@ -227,7 +227,7 @@ class HookLoader {
      * Return all commits.
      *
      * @return array
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     private function getCommits() {
         $commits = $this->execute(sprintf('git show --format=format:%%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()), false);
@@ -245,7 +245,7 @@ class HookLoader {
      * Saves the blacklist for files.
      *
      * @var    array
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     private $fileBlacklist;
 
@@ -255,7 +255,7 @@ class HookLoader {
      * @param $commit
      *
      * @return mixed
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     private function getFilesForCommit($commit) {
         $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit), false);
@@ -284,7 +284,7 @@ class HookLoader {
     /**
      * Get the files.
      *
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      * @return GitFile[]
      */
     private function getFiles() {
@@ -336,7 +336,7 @@ class HookLoader {
      * Reads the config.
      *
      * @return mixed
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     private function readConfig() {
 

@@ -15,7 +15,7 @@ class PHPCSHook extends AbstractHook {
     /**
      * Defines the default standard.
      *
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      * @var    string
      */
     const DEFAULT_STANDARD = 'PSR2';
@@ -24,7 +24,7 @@ class PHPCSHook extends AbstractHook {
      * Starts the hook.
      *
      * @return mixed
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     public function run() {
 
@@ -80,7 +80,7 @@ class PHPCSHook extends AbstractHook {
      * Returns the path to executable.
      *
      * @return string
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     private function getPHPCSExecutablePath() {
         return VENDOR_DIRECTORY . 'bin' . DIRECTORY_SEPARATOR . 'phpcs';
@@ -91,7 +91,7 @@ class PHPCSHook extends AbstractHook {
      * Returns the CS Standard.
      *
      * @return string
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     private function getStandard() {
 

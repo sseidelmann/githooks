@@ -17,7 +17,7 @@ class PHPLintHook extends AbstractHook {
      * Starts the hook.
      *
      * @return mixed
-     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
      */
     public function run() {
 
