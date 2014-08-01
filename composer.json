@@ -12,18 +12,11 @@
     "bin": [
         "bin/hook"
     ],
-    "scripts": {
-        "post-package-install": "GitHooks\\Scripts\\Installer::genericEventCall",
-        "post-package-update": "GitHooks\\Scripts\\Installer::genericEventCall",
-        "post-update-cmd": [
-            "echo DEBUGGGGG!!!!!",
-            "GitHooks\\Scripts\\Installer::genericEventCall"
-            ]
-    },
     "autoload": {
         "psr-4": {"GitHooks\\": "src/"}
     },
     "require": {
-        "symfony/console": "v2.5.2"
+        "symfony/console": "v2.5.2",
+        "squizlabs/php_codesniffer": "1.*"
     }
 }
