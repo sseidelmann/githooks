@@ -46,7 +46,6 @@ class PHPCSHook extends AbstractHook {
                 exec($command, $output);
 
 
-
                 if (count($output) > 0) {
                     $xml = new \SimpleXMLElement(implode("\n", $output));
 
