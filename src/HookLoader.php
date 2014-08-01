@@ -136,7 +136,7 @@ class HookLoader {
 
     private function execute($command) {
 
-        echo " ~ '" . $command . "'";
+        echo " ~ '" . $command . "'" . PHP_EOL;
         $result = exec($command, $output, $return);
 
         $returnObject = (object) array(
@@ -145,7 +145,16 @@ class HookLoader {
             'return' => $return
         );
 
-        print_r($returnObject);
+        // print_r($returnObject);
+        echo "   | result: " . $result . PHP_EOL;
+        echo "   | return: " . $return . PHP_EOL;
+        foreach ($output as $index => $line) {
+            $out = "        "
+            if ($index == 0) {
+                $out = "output: ";
+            }
+            echo "   | " . $out . $return . PHP_EOL;
+        }
 
         return $returnObject;
     }
@@ -171,6 +180,13 @@ class HookLoader {
             $tree = array();
             // \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
             $treeResult = $this->execute(sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file));
+
+            if (count($treeResult->output) < 1) {
+                // Found no existing file
+                $this->execute(sprintf('git update-index --add %s', $file));
+            }
+
+
             // exec($commandLsTree, $tree, $return);
 
             /*
@@ -182,19 +198,13 @@ class HookLoader {
             */
             $tree = preg_split('/\s/', $treeResult->output[0]);
 
-
-
-            $fileContents = array();
-            $command = "git cat-file $treeResult->output[1] $treeResult->output[2]  2> /dev/null";
-            echo $command . PHP_EOL;
-            exec($command, $fileContents, $return);
-            if ($return > 0) {
-
+            $gitCatResult = $this->execute(sprintf('git cat-file %s %s 2> /dev/null', $treeResult->output[1], $treeResult->output[2]));
+            if ($gitCatResult->return > 0) {
                 echo "Could not run git cat-file\n\n";
                 // exit(1);
             }
 
-            $contents = implode("\n", $fileContents);
+            $contents = implode("\n", $gitCatResult->output);
 
             $parsed[] = new GitFile($file, $contents);
         }
