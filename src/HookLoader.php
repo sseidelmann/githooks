@@ -185,7 +185,9 @@ class HookLoader {
 
             if (count($treeResult->output) < 1) {
                 // Found no existing file
-                $this->execute(sprintf('git update-index --add %s', $file));
+
+                $this->execute(sprintf('git rev-parse --verify %s 2> /dev/null', trim($this->argvInput[5])));
+                // exec( "git diff-index --cached --full-index {$against}", $files );
             }
 
 
