@@ -23,6 +23,7 @@ class PHPLintHook extends AbstractHook {
 
         foreach ($this->getFiles() as $file) {
             if ($file->isValidExtension('php')) {
+                $output = array();
                 $result = exec(sprintf('echo %s | php -l 2>&1', escapeshellarg($file->getContent())), $output);
                 if (strpos($result, 'Errors parsing') !== false) {
                     array_pop($output);
