@@ -130,10 +130,11 @@ class HookLoader {
             echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' . PHP_EOL;
             foreach ($errors as $file => $error) {
                 echo $file . ':' . PHP_EOL;
+                $length = max(array_map('strlen', array_keys($error)));
                 foreach ($error as $hook => $errorLines) {
-                    echo '  ' . $hook . PHP_EOL;
+                    // echo '  ' . $hook . PHP_EOL;
                     foreach ($errorLines as $errorLine) {
-                        echo '    - ' . $errorLine['error'] . PHP_EOL;
+                        echo '   - ' . str_pad('['.$hook.']', $length+2, ' ', STR_PAD_RIGHT) . $errorLine['error'] . PHP_EOL;
                     }
                 }
             }
