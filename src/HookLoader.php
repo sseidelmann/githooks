@@ -244,8 +244,6 @@ class HookLoader {
      * @return GitFile[]
      */
     private function getFiles() {
-
-
         $commits = $this->getCommits();
         $files   = array();
 
@@ -258,84 +256,6 @@ class HookLoader {
         }
 
         return $files;
-
-
-        // $this->execute(sprintf('git cat-file -p %s^{tree}', trim($this->argvInput[5])));
-        // $this->execute(sprintf('git rev-parse --verify HEAD 2> /dev/null', trim($this->argvInput[5])));
-
-
-
-        $gitDiffResult = $this->execute(sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
-
-
-        $parsed = array();
-        foreach ($gitDiffResult->output as $file) {
-            // \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
-            $treeResult = $this->execute(sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file));
-
-            if (count($treeResult->output) < 1) {
-                // Found no existing file
-
-                // Get all commits
-                $commits = $this->execute(sprintf('git show --format=format:%%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()), false);
-                for ($i = 0; $i < count($commits->output); $i++) {
-                    $line = $commits->output[$i];
-                    if (strpos($line, 'diff --git ') !== false) {
-                        $commitShaIds[] = $commits->output[$i-1];
-                    }
-                }
-
-                foreach ($commitShaIds as $index => $commit) {
-                    // Get the changed files.
-                    $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit));
-                    if ($index == 3) {
-                        break;
-                    }
-
-                    foreach ($commitFiles->output as $fileName) {
-                        // Get contents
-                        $fileInformation = $this->execute(sprintf('git show %s:%s', $commit, $fileName));
-                    }
-                }
-
-
-
-                /* $this->execute(sprintf('git diff --name-only %s^..%s', $this->getOldRef(), $this->getNewRef()));
-                $this->execute(sprintf('git show --format=format:%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef())); */
-
-
-                /* $this->execute(sprintf('git rev-parse --verify %s 2> /dev/null', trim($this->argvInput[5])));
-                $this->execute(sprintf('git diff-index --cached --full-index %s', $this->argvInput[3]));
-                $this->execute(sprintf('git diff-index --full-index %s', $this->argvInput[3]));
-                $this->execute(sprintf('git diff-index %s', $this->argvInput[3]));
-                $this->execute(sprintf('git show %s:%s', $this->argvInput[4], $file));
-                exec( "git diff-index --cached --full-index {$against}", $files );*/
-            }
-
-
-            // exec($commandLsTree, $tree, $return);
-
-            /*
-            if (count($tree) < 1) {
-                $commandLsTree = sprintf('git ls-tree %s %s  2> /dev/null', '4b825dc642cb6eb9a060e54bf8d69288fbee4904', $file);
-                echo $commandLsTree . PHP_EOL;
-                exec($commandLsTree, $tree, $return);
-            }
-            */
-            $tree = preg_split('/\s/', $treeResult->output[0]);
-
-            $gitCatResult = $this->execute(sprintf('git cat-file %s %s 2> /dev/null', $tree[1], $tree[2]));
-            if ($gitCatResult->return > 0) {
-                echo "Could not run git cat-file\n\n";
-                // exit(1);
-            }
-
-            $contents = implode("\n", $gitCatResult->output);
-
-            $parsed[] = new GitFile($file, $contents);
-        }
-
-        return $parsed;
     }
 
     /**
