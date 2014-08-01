@@ -117,8 +117,6 @@ class HookLoader {
             }
         }
 
-        \GitHooks\Helper\ConsoleOutput::logger()->write('');
-
         $errors = array();
         if ($this->getHooks() > 0) {
             foreach ($this->getHooks() as $hook) {
@@ -128,7 +126,6 @@ class HookLoader {
         }
 
         if (count($errors) > 0) {
-            // print_r($errors);
             foreach ($errors as $file => $error) {
                 echo $file . ':' . PHP_EOL;
                 foreach ($error as $hook => $errorLines) {
