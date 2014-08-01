@@ -175,8 +175,7 @@ class HookLoader {
 
 
 
-        $gitDiffResult  = $this->execute(sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
-        $gitDiffResult2 = $this->execute(sprintf('git diff %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
+        $gitDiffResult = $this->execute(sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
 
 
         $parsed = array();
@@ -188,11 +187,11 @@ class HookLoader {
                 // Found no existing file
 
                 // $this->execute(sprintf('git rev-parse --verify %s 2> /dev/null', trim($this->argvInput[5])));
-                /*$this->execute(sprintf('git diff-index --cached --full-index %s', $this->argvInput[3]));
-                $this->execute(sprintf('git diff-index --full-index %s', $this->argvInput[3]));
-                $this->execute(sprintf('git diff-index %s', $this->argvInput[3]));*/
+                $this->execute(sprintf('git diff-index --cached --full-index %s', $this->argvInput[3]));
+                /*$this->execute(sprintf('git diff-index --full-index %s', $this->argvInput[3]));
+                $this->execute(sprintf('git diff-index %s', $this->argvInput[3]));
                 $this->execute(sprintf('git show %s:%s', $this->argvInput[4], $file));
-                // exec( "git diff-index --cached --full-index {$against}", $files );
+                exec( "git diff-index --cached --full-index {$against}", $files );*/
             }
 
 
