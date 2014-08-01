@@ -219,9 +219,9 @@ class HookLoader {
 
             if (count($treeResult->output) < 1) {
                 // Found no existing file
-                
+
                 // Get all commits
-                $this->execute(sprintf('git show --format=format:%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()));
+                $this->execute(sprintf('git show --format=format:%%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef()));
                 /* $this->execute(sprintf('git diff --name-only %s^..%s', $this->getOldRef(), $this->getNewRef()));
                 $this->execute(sprintf('git show --format=format:%H --quiet %s..%s', $this->getOldRef(), $this->getNewRef())); */
 
