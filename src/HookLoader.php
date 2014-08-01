@@ -153,7 +153,7 @@ class HookLoader {
             if ($index == 0) {
                 $out = "output: ";
             }
-            echo "   | " . $out . $return . PHP_EOL;
+            echo "   | " . $out . $line . PHP_EOL;
         }
 
         return $returnObject;
@@ -177,7 +177,6 @@ class HookLoader {
 
         $parsed = array();
         foreach ($gitDiffResult->output as $file) {
-            $tree = array();
             // \GitHooks\Helper\ConsoleOutput::logger()->debug($file);
             $treeResult = $this->execute(sprintf('git ls-tree %s %s  2> /dev/null', trim($this->argvInput[5]), $file));
 
@@ -198,7 +197,7 @@ class HookLoader {
             */
             $tree = preg_split('/\s/', $treeResult->output[0]);
 
-            $gitCatResult = $this->execute(sprintf('git cat-file %s %s 2> /dev/null', $treeResult->output[1], $treeResult->output[2]));
+            $gitCatResult = $this->execute(sprintf('git cat-file %s %s 2> /dev/null', $tree[1], $tree[2]));
             if ($gitCatResult->return > 0) {
                 echo "Could not run git cat-file\n\n";
                 // exit(1);
