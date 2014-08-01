@@ -188,6 +188,8 @@ class HookLoader {
 
                 // $this->execute(sprintf('git rev-parse --verify %s 2> /dev/null', trim($this->argvInput[5])));
                 $this->execute(sprintf('git diff-index --cached --full-index %s', $this->argvInput[3]));
+                $this->execute(sprintf('git diff-index --full-index %s', $this->argvInput[3]));
+                $this->execute(sprintf('git diff-index %s', $this->argvInput[3]));
                 // exec( "git diff-index --cached --full-index {$against}", $files );
             }
 
