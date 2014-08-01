@@ -136,8 +136,8 @@ class HookLoader {
 
     private function execute($command, $displayDebugOutput = true) {
 
-        echo PHP_EOL . "~~~~~~~~~~~~~~~~~~ COMMAND ~~~~~~~~~~~~~~~~~~" . PHP_EOL;
-        echo " ~ '" . $command . "'" . PHP_EOL;
+        // echo PHP_EOL . "~~~~~~~~~~~~~~~~~~ COMMAND ~~~~~~~~~~~~~~~~~~" . PHP_EOL;
+        // echo " ~ '" . $command . "'" . PHP_EOL;
         $result = exec($command, $output, $return);
 
         $returnObject = (object) array(
@@ -146,7 +146,7 @@ class HookLoader {
             'return' => $return
         );
 
-        if ($displayDebugOutput) {
+        /*if ($displayDebugOutput) {
             echo "   | result: " . $result . PHP_EOL;
             echo "   | return: " . $return . PHP_EOL;
             foreach ($output as $index => $line) {
@@ -158,7 +158,7 @@ class HookLoader {
             }
             echo PHP_EOL;
             echo PHP_EOL;
-        }
+        }*/
 
         return $returnObject;
     }
