@@ -135,4 +135,16 @@ abstract class AbstractHook {
         //return $this->errors;
         return self::$errors;
     }
+
+    /**
+     * Returns the config key.
+     *
+     * @param string $key the parameter
+     *
+     * @return mixed
+     * @author Sebastian Seidelmann <sebastian.seidelmann@googlemail.com>
+     */
+    protected function getConfig($key) {
+        return isset($this->config[$key])?$this->config[$key]:false;
+    }
 }
