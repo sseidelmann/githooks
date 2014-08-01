@@ -238,6 +238,14 @@ class HookLoader {
     }
 
     /**
+     * Saves the blacklist for files.
+     *
+     * @var    array
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     */
+    private $fileBlacklist;
+
+    /**
      * Returns all files from specified commit.
      *
      * @param $commit
@@ -252,14 +260,17 @@ class HookLoader {
         foreach ($commitFiles->output as $file) {
             $gitShow = $this->execute(sprintf('git show %s:%s', $commit, $file), false);
             if ($gitShow->return != 0) {
+                $this->fileBlacklist[] = $file;
                 continue;
             }
 
-            $files[$file] = new GitFile(
-                $file,
-                implode("\n", $gitShow->output),
-                $commit
-            );
+            if (!in_array($file, $this->fileBlacklist)) {
+                $files[$file] = new GitFile(
+                    $file,
+                    implode("\n", $gitShow->output),
+                    $commit
+                );
+            }
         }
 
         return $files;
