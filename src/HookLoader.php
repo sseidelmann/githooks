@@ -160,7 +160,7 @@ class HookLoader {
             echo " ~ '" . $command . "'" . PHP_EOL;
         }
 
-        $result = exec($command, $output, $return);
+        $result = @exec($command, $output, $return);
 
         $returnObject = (object) array(
             'result' => $result,
