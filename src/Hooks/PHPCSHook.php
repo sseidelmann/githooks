@@ -36,9 +36,10 @@ class PHPCSHook extends AbstractHook {
                 file_put_contents($tempname, $file->getContent());
 
                 $command = sprintf(
-                    '%s --standard=%s',
+                    '%s --standard=%s %s',
                     $this->getPHPCSExecutablePath(),
-                    $this->getStandard()
+                    $this->getStandard(),
+                    $tempname
                 );
 
                 $this->addError($file, $command);
