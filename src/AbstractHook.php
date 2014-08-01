@@ -118,7 +118,7 @@ abstract class AbstractHook {
      */
     protected function addError(GitFile $file, $error) {
         //$this->errors[$file->getName()][$this->getName(true)][] = array(
-        self::$errors[$file->getName()][$this->getName(true)][] = array(
+        self::$errors[$file->getName()][str_replace('hook', '', $this->getName(true))][] = array(
             'file'  => $file,
             'error' => $error,
             'hook'  => get_called_class()
