@@ -33,7 +33,7 @@ class PHPCSHook extends AbstractHook {
             if ($file->isValidExtension('php')) {
 
                 $errors = $this->getErrorsForFile($file);
-                if (isset($errors['phplinthook'])) {
+                if (isset($errors['phplint'])) {
                     continue;
                 }
 
