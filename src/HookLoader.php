@@ -160,6 +160,10 @@ class HookLoader {
             echo " ~ '" . $command . "'" . PHP_EOL;
         }
 
+        if (strpos($command, '2> /dev/null') === false) {
+            $command .= ' 2> /dev/null';
+        }
+
         $result = @exec($command, $output, $return);
 
         $returnObject = (object) array(
