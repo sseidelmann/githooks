@@ -175,7 +175,8 @@ class HookLoader {
 
 
 
-        $gitDiffResult = $this->execute(sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
+        $gitDiffResult  = $this->execute(sprintf('git diff --name-only %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
+        $gitDiffResult2 = $this->execute(sprintf('git diff %s %s 2> /dev/null', $this->argvInput[3], $this->argvInput[4]));
 
 
         $parsed = array();
