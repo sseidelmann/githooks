@@ -45,13 +45,20 @@ class PHPCSHook extends AbstractHook {
                 $output = array();
                 exec($command, $output);
 
-                $this->addError($file, $command);
 
 
                 if (count($output) > 0) {
                     $xml = new \SimpleXMLElement(implode("\n", $output));
+
+                    /* @var $error SimpleXMLElement */
                     foreach ($xml->file->error as $error) {
-                        print_r($error);
+                        // print_r($error);
+                        $attributes = $error->attributes();
+                        $line       = $attributes['line'];
+                        $column     = $attributes['column'];
+                        $message    = (string) $error;
+
+                        $this->addError($file, sprintf('%s (in Line %s', $message, $line));
                     }
                 }
                 unlink($tempname);
