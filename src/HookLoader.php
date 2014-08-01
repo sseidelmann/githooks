@@ -231,7 +231,7 @@ class HookLoader {
                 }
 
                 foreach ($commitShaIds as $index => $commit) {
-                    $commitFiles = $this->execute(sprintf('git diff --name-only commit^..commit', $commit, $commit));
+                    $commitFiles = $this->execute(sprintf('git diff --name-only %s^..%s', $commit, $commit));
                     if ($index == 3) {
                         break;
                     }
