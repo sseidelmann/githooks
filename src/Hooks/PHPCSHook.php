@@ -39,7 +39,20 @@ class PHPCSHook extends AbstractHook {
 
 
                 $tempname = tempnam('/tmp/', 'phpcs') . '.php';
-                file_put_contents($tempname, $file->getContent());
+                $contents = $file->getContent();
+
+                if (strpos($contents, '#nocheck') !== false) {
+                    if ($email = $this->getConfig('nocheckemail')) {
+                        mail(
+                            $email,
+                            'GIT: no check commit',
+                            'Following content will be pushed without CS check:' . PHP_EOL . PHP_EOL . $contents
+                        );
+                    }
+                    break;
+                }
+
+                file_put_contents($tempname, $contents);
 
                 $command = sprintf(
                     '%s --standard=%s --report=xml %s',
