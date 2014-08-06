@@ -29,6 +29,16 @@ class PHPCSHook extends AbstractHook {
     public function run() {
 
 
+        $standards = ROOT_DIRECTORY . 'standards';
+        if (is_dir($standards)) {
+            exec(sprintf(
+                '%s --config-set installed_paths %s',
+                $this->getPHPCSExecutablePath(),
+                $standards
+            ));
+        }
+
+
         foreach ($this->getFiles() as $file) {
             if ($file->isValidExtension('php') && !$this->onBlacklist($file)) {
 
