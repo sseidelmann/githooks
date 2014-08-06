@@ -32,6 +32,14 @@ abstract class AbstractHook {
     private static $errors = array();
 
     /**
+     * Files in blacklist.
+     *
+     * @var    array
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     */
+    private static $blacklist = array();
+
+    /**
      * Creates the hook instance.
      *
      * @param $config
@@ -41,6 +49,32 @@ abstract class AbstractHook {
      */
     public final function __construct($config) {
         $this->config = $config;
+    }
+
+    /**
+     * Adds a file to the blacklist.
+     *
+     * @param string $file the file
+     *
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @return void
+     */
+    protected function addToBlacklist($file)
+    {
+        self::$blacklist[] = $file;
+    }
+
+    /**
+     * Checks if the file is on blacklist.
+     *
+     * @param string $file the file.
+     *
+     * @return bool
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     */
+    protected function onBlacklist($file)
+    {
+        return in_array($file, self::$blacklist);
     }
 
     /**

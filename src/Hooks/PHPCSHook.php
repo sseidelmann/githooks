@@ -30,7 +30,7 @@ class PHPCSHook extends AbstractHook {
 
 
         foreach ($this->getFiles() as $file) {
-            if ($file->isValidExtension('php')) {
+            if ($file->isValidExtension('php') && !$this->onBlacklist($file)) {
 
                 $errors = $this->getErrorsForFile($file);
                 if (isset($errors['phplint'])) {
@@ -42,6 +42,7 @@ class PHPCSHook extends AbstractHook {
                 $contents = $file->getContent();
 
                 if (strpos($contents, '#nocheck') !== false) {
+                    $this->addToBlacklist($file);
                     if ($email = $this->getConfig('nocheckemail')) {
                         mail(
                             $email,
