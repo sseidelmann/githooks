@@ -50,7 +50,7 @@ class PHPCSHook extends AbstractHook {
                             'Following content will be pushed without CS check:' . PHP_EOL . PHP_EOL . $contents
                         );
                     }
-                    break;
+                    continue;
                 }
 
                 file_put_contents($tempname, $contents);
