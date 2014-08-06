@@ -28,17 +28,6 @@ class PHPCSHook extends AbstractHook {
      */
     public function run() {
 
-
-        $standards = ROOT_DIRECTORY . 'standards';
-        if (is_dir($standards)) {
-            exec(sprintf(
-                '%s --config-set installed_paths %s',
-                $this->getPHPCSExecutablePath(),
-                $standards
-            ));
-        }
-
-
         foreach ($this->getFiles() as $file) {
             if ($file->isValidExtension('php') && !$this->onBlacklist($file)) {
 
@@ -65,9 +54,19 @@ class PHPCSHook extends AbstractHook {
 
                 file_put_contents($tempname, $contents);
 
+
+                $standards = ROOT_DIRECTORY . 'standards' . DIRECTORY_SEPARATOR;
+                $config    = '';
+                if (is_dir($standards)) {
+                    $config = sprintf(
+                        ' --config-set installed_paths %s ',
+                        $standards
+                    );
+                }
+
                 $command = sprintf(
                     '%s --standard=%s --report=xml %s',
-                    $this->getPHPCSExecutablePath(),
+                    $this->getPHPCSExecutablePath() . $config,
                     $this->getStandard(),
                     $tempname
                 );
