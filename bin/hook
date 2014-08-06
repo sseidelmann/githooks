@@ -7,6 +7,7 @@ if (!file_exists($path . 'autoload.php')) {
 }
 
 define('VENDOR_DIRECTORY', $path);
+define('ROOT_DIRECTORY',   realpath(VENDOR_DIRECTORY . '../') . DIRECTORY_SEPARATOR);
 
 
 include VENDOR_DIRECTORY . 'autoload.php';

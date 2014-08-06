@@ -14,6 +14,14 @@ use GitHooks\Helper\ConsoleOutput;
 class PHPLintHook extends AbstractHook {
 
     /**
+     * Saves the checked files.
+     *
+     * @author Sebastian Seidelmann <sebastian.seidelmann@twt.de>
+     * @var    array
+     */
+    private static $checked = array();
+
+    /**
      * Starts the hook.
      *
      * @return mixed
@@ -22,7 +30,8 @@ class PHPLintHook extends AbstractHook {
     public function run() {
 
         foreach ($this->getFiles() as $file) {
-            if ($file->isValidExtension('php')) {
+            if ($file->isValidExtension('php') && !in_array($file, self::$checked)) {
+
                 $output = array();
                 $result = exec(sprintf('echo %s | php -l 2>&1', escapeshellarg($file->getContent())), $output);
                 if (strpos($result, 'Errors parsing') !== false) {
@@ -31,6 +40,8 @@ class PHPLintHook extends AbstractHook {
                         $this->addError($file, $line);
                     }
                 }
+
+                self::$checked[] = $file;
             }
         }
     }
